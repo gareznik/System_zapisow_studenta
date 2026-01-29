@@ -14,8 +14,9 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Konstruktor klasy realizującej zapis do grupy.
-     * @param model fasada Modelu
-     * @param indeks numer indeksu studenta
+     * 
+     * @param model   fasada Modelu
+     * @param indeks  numer indeksu studenta
      * @param nrKursu numer kursu
      */
     public ZapisanieSieDoGrupyZajeciowej(IModel model, int indeks, String nrKursu) {
@@ -62,6 +63,7 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Wybór grupy zajęciowej (symulacja wyboru przez użytkownika).
+     * 
      * @return numer wybranej grupy
      */
     private int wybranieGrupyZajeciowej() {
@@ -75,13 +77,16 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Weryfikacja kolizji w planie zajęć.
+     * 
      * @param nrGrupy numer grupy do sprawdzenia
      * @return true jeśli jest kolizja, false jeśli brak
      */
     private boolean weryfikacjaKolizjiWPlanieZajec(int nrGrupy) {
         // Pobierz dane grupy
         String[] daneGrupy = model.znalezienieGrupy(nrGrupy, nrKursu);
-        if (daneGrupy.length < 6) {
+
+        // Zabezpieczenie przed NullPointerException, gdy grupa nie zostanie znaleziona
+        if (daneGrupy == null || daneGrupy.length < 6) {
             return false; // Nie można sprawdzić kolizji bez danych
         }
 
@@ -96,13 +101,16 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Sprawdzenie wolnych miejsc w grupie.
+     * 
      * @param nrGrupy numer grupy
      * @return true jeśli są wolne miejsca, false jeśli nie ma
      */
     private boolean sprawdzenieCzySaWolneMiejscaWGrupie(int nrGrupy) {
         // Pobierz dane grupy
         String[] daneGrupy = model.znalezienieGrupy(nrGrupy, nrKursu);
-        if (daneGrupy.length >= 5) {
+
+        // Zabezpieczenie przed NullPointerException
+        if (daneGrupy != null && daneGrupy.length >= 5) {
             try {
                 int limit = Integer.parseInt(daneGrupy[3]);
                 int zajete = Integer.parseInt(daneGrupy[4]);
@@ -123,6 +131,7 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Potwierdzenie zapisu przez użytkownika.
+     * 
      * @return true jeśli potwierdzono, false jeśli anulowano
      */
     private boolean potwierdzenieZapisu() {
@@ -137,6 +146,7 @@ public class ZapisanieSieDoGrupyZajeciowej {
 
     /**
      * Rejestracja zapisu w bazie danych.
+     * 
      * @param nrGrupy numer grupy
      */
     private void rejestrowanieZapisuWBazieDanych(int nrGrupy) {

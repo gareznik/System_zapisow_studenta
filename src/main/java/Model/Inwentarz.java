@@ -96,7 +96,7 @@ public class Inwentarz {
 																												// konstruktor
 																												// GrupaZajeciowa(dane)
 		grupy.add(grupa);
-		dao.utworzGrupe(nrGrupy, nrKursu);
+		dao.utworzGrupe(nrGrupy, nrKursu, limit, termin, sala);
 		Widok.pokaż(this.getClass().getCanonicalName(), "utworzNowaGrupe", true,
 				"Utworzono nową grupę: " + dao.pobierzDaneGrupy(nrGrupy, nrKursu));
 	}

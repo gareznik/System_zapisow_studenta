@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @Tag("kontroler")
-@DisplayName("KontrolerStudent – testy przypadków użycia")
+@Tag("mock")
+@DisplayName("KontrolerStudent – testy przypadków użycia (Mock)")
 @TestMethodOrder(OrderAnnotation.class)
-class KontrolerStudentTest {
+class KontrolerStudentMockTest {
 
     private KontrolerStudent kontroler;
     private IModel model;
@@ -22,10 +23,10 @@ class KontrolerStudentTest {
 
         // dane zwracane przez model
         when(model.znalezienieStudenta(12345))
-                .thenReturn(new String[]{"12345", "Jan", "Kowalski"});
+                .thenReturn(new String[] { "12345", "Jan", "Kowalski" });
 
         when(model.znalezienieUprawnienUzytkownika(12345))
-                .thenReturn(new String[]{"W1", "W2"});
+                .thenReturn(new String[] { "W1", "W2" });
 
         when(model.pobranieListyZajecIGrup())
                 .thenReturn(new java.util.ArrayList<>());

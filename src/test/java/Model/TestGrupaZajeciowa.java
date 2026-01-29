@@ -19,7 +19,6 @@ public class TestGrupaZajeciowa {
 
     @BeforeEach
     public void setUp() {
-        // JEŚLI: tworzymy grupę z limitem 2 miejsc oraz studentów
         grupa = new GrupaZajeciowa(1, "W1", 2, new ArrayList<>(), "Pon 10:00", "301");
         student1 = new Student(1, "Adam", "Nowak");
         student2 = new Student(2, "Ewa", "Kowalska");
@@ -27,7 +26,6 @@ public class TestGrupaZajeciowa {
 
     @AfterEach
     public void tearDown() {
-        // WTEDY: czyścimy referencje
         grupa = null;
         student1 = null;
         student2 = null;
@@ -68,10 +66,6 @@ public class TestGrupaZajeciowa {
 
         // WTEDY: limit miejsc nadal pozwala (było 0, jest 1, limit 2)
         assertTrue(grupa.czySaWolneMiejsca());
-        // Uwaga: Klasa GrupaZajeciowa nie udostępnia gettera do listy studentów,
-        // więc weryfikujemy stan pośrednio przez czySaWolneMiejsca lub metodę w
-        // studencie jeśli dwukierunkowa
-        // Ale tutaj możemy sprawdzić, że po dodaniu dwóch studentów brak miejsc
         grupa.dodajStudenta(student2);
         assertFalse(grupa.czySaWolneMiejsca());
     }
@@ -110,10 +104,6 @@ public class TestGrupaZajeciowa {
         grupa.dodajStudenta(student1);
         grupa.dodajStudenta(student2);
         grupa.dodajStudenta(new Student(3, "Test", "Test"));
-
-        // Jeśli limit zmieniony poprawnie na >=3, to nadal powinny być wolne lub limit
-        // osiągnięty dopiero przy 3
-        // Skoro nowyLimit to 5 lub 10, to przy 3 studentach nadal true
         assertTrue(grupa.czySaWolneMiejsca(), "Po zwiększeniu limitu powinny być nadal wolne miejsca");
     }
 
@@ -125,12 +115,10 @@ public class TestGrupaZajeciowa {
         grupa.dodajStudenta(student1);
         grupa.dodajStudenta(student2);
 
-        // GDY: próbujemy zmienić limit na 1 (mniej niż liczba studentów)
+        // GDY: próbujemy zmienić limit na 1
         grupa.zmienLimitMiejsc(1);
 
-        // WTEDY: limit nie powinien się zmienić (metoda powinna odrzucić zmianę i
-        // wypisać komunikat w Widoku)
-        // Sprawdzamy to próbując dodać kolejnych, jeśli limit pozostał 2, to jest pełna
+        // WTEDY: limit nie powinien się zmienić
         assertFalse(grupa.czySaWolneMiejsca(), "Limit nie powinien się zmniejszyć poniżej liczby studentów");
     }
 }

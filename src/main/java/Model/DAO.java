@@ -5,7 +5,8 @@ import java.util.Map;
 import Komunikacja.*;
 
 /**
- * Symulacja dostępu do bazy danych, która "trwałe" dane przechowuje zserializowane w postaci csv.
+ * Symulacja dostępu do bazy danych, która "trwałe" dane przechowuje
+ * zserializowane w postaci csv.
  * W stanie początkowym jest już 3 studentów, 2 kursy i 3 grupy.
  * Ponowne uruchomienie programu przywraca stan początkowy bazy.
  */
@@ -13,11 +14,11 @@ public class DAO implements IDAO {
     /**
      * Opisy studentów (indeks;imię;nazwisko;deficytECTS).
      */
-    private Map<Integer,String> bazaStudentow = new HashMap<Integer,String>();
+    private Map<Integer, String> bazaStudentow = new HashMap<Integer, String>();
     /**
      * Opisy kursów (nrKursu;nazwa).
      */
-    private Map<String,String> bazaKursow = new HashMap<String,String>();
+    private Map<String, String> bazaKursow = new HashMap<String, String>();
     /**
      * Opisy Grup (idGrupy;nrGrupy;nrKursu;limitMiejsc;zajęteMiejsca;termin;sala)
      */
@@ -42,8 +43,9 @@ public class DAO implements IDAO {
 
     /**
      * Pobranie danych o studencie.
+     * 
      * @param indeks indeks studenta, którego dane ponieramy
-     * @return          csv studenta lub numer indeks, jeśli nie znaleziono studenta
+     * @return csv studenta lub numer indeks, jeśli nie znaleziono studenta
      */
     public String pobierzDaneStudenta(int indeks) {
         if (bazaStudentow.containsKey(indeks)) {
@@ -65,9 +67,10 @@ public class DAO implements IDAO {
 
     /**
      * Pobranie danych o grupie.
+     * 
      * @param nrGrupy numer grupy, o której dane pobieramy
      * @param nrKursu numer kursu, do którego należy grupa
-     * @return          csv grupy lub numer Grupy, jeśli jej nie znaleziono
+     * @return csv grupy lub numer Grupy, jeśli jej nie znaleziono
      */
     public String pobierzDaneGrupy(int nrGrupy, String nrKursu) {
         CSV csv = new CSV();
@@ -93,7 +96,8 @@ public class DAO implements IDAO {
 
     /**
      * Zapisanie w systemie zapisu studenta do grupy.
-     * @param indeks to indeks zapisywanego studenta
+     * 
+     * @param indeks  to indeks zapisywanego studenta
      * @param nrGrupy to numer grupy do której student się zapisuje
      * @param nrKursu to numer Kusu do którego student się zapisuje
      */
@@ -111,12 +115,15 @@ public class DAO implements IDAO {
 
                 if (zajete < limit) {
                     zajete++;
+                    String termin = csv.znajdzTerminGrupy(grupa);
+                    String sala = csv.znajdzSaleGrupy(grupa);
                     String nowaGrupa = csv.utworzCsvGrupe(
                             entry.getKey(),
                             nrGrupy,
                             nrKursu,
-                            limit
-                    );
+                            limit,
+                            termin,
+                            sala);
                     bazaGrup.put(entry.getKey(), nowaGrupa);
 
                     Widok.pokaż(getClass().getCanonicalName(),
@@ -136,7 +143,8 @@ public class DAO implements IDAO {
 
     /**
      * Usuwanie w systemie przypisu studenta do grupy.
-     * @param indeks to indeks wypisywanego studenta
+     * 
+     * @param indeks  to indeks wypisywanego studenta
      * @param nrGrupy to numer grupy z której student się wypisuje
      * @param nrKursu to numer Kusu z którego student się wypisuje
      */
@@ -152,12 +160,15 @@ public class DAO implements IDAO {
                 int zajete = csv.znajdzZajeteMiejsca(grupa);
                 if (zajete > 0) {
                     zajete--;
+                    String termin = csv.znajdzTerminGrupy(grupa);
+                    String sala = csv.znajdzSaleGrupy(grupa);
                     String nowaGrupa = csv.utworzCsvGrupe(
                             entry.getKey(),
                             nrGrupy,
                             nrKursu,
-                            csv.znajdzLimitMiejsc(grupa)
-                    );
+                            csv.znajdzLimitMiejsc(grupa),
+                            termin,
+                            sala);
                     bazaGrup.put(entry.getKey(), nowaGrupa);
 
                     Widok.pokaż(getClass().getCanonicalName(),
@@ -177,10 +188,14 @@ public class DAO implements IDAO {
 
     /**
      * Utworzenie nowej grupy zajęciowej.
+     * 
      * @param nrGrupy to numer nowej grupy zajęciowej
      * @param nrKursu to numer kursu do którego grupa jest dodawana
+     * @param limit   limit miejsc w grupie
+     * @param termin  termin zajęć
+     * @param sala    sala
      */
-    public void utworzGrupe(int nrGrupy, String nrKursu) {
+    public void utworzGrupe(int nrGrupy, String nrKursu, int limit, String termin, String sala) {
         CSV csv = new CSV();
         ostatniIdGrupy++;
 
@@ -188,8 +203,9 @@ public class DAO implements IDAO {
                 ostatniIdGrupy,
                 nrGrupy,
                 nrKursu,
-                15
-        );
+                limit,
+                termin,
+                sala);
 
         bazaGrup.put(ostatniIdGrupy, grupa);
 
@@ -201,6 +217,7 @@ public class DAO implements IDAO {
 
     /**
      * Usunięcie grupy zajęciowej.
+     * 
      * @param nrGrupy to numer grupy, która jest usuwana
      * @param nrKursu to numer kursu, którego grupa jest usuwana
      */
@@ -230,8 +247,9 @@ public class DAO implements IDAO {
 
     /**
      * Pobranie danych o kursie.
+     * 
      * @param nrKursu to numer kursu, o którym dane są pobierane
-     * @return          csv kursu lub numer kursu, jeśli nie znaleziono kursu
+     * @return csv kursu lub numer kursu, jeśli nie znaleziono kursu
      */
     public String[] pobierzDaneKursu(String nrKursu) {
         if (bazaKursow.containsKey(nrKursu)) {
@@ -246,11 +264,12 @@ public class DAO implements IDAO {
                 "pobierzDaneKursu",
                 false,
                 "Brak kursu " + nrKursu);
-        return new String[]{nrKursu};
+        return new String[] { nrKursu };
     }
 
     /**
      * Edytownie grupy zajęciowej.
+     * 
      * @param nrGrupy to numer grupy, która jest edytowana
      * @param nrKursu to numer Kusu, którego grupa jest edytowana
      */

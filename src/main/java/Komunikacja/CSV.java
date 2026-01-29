@@ -18,6 +18,7 @@ public class CSV {
 
     /**
      * Znalezienie studenta w csv studenta.
+     * 
      * @param student csv studenta (indeks;imię;nazwisko;deficytECTS)
      * @return student nr indeks - imię nazwisko (deficyt ECTS: deficytECTS )
      */
@@ -62,6 +63,7 @@ public class CSV {
 
     /**
      * Znalezienie kurs w csv kursu.
+     * 
      * @param kurs csv kursu (nrKursu;nazwa)
      * @return kurs nrKursu - nazwa
      */
@@ -89,8 +91,10 @@ public class CSV {
 
     /**
      * Znalezienie grupe w csv grupy.
+     * 
      * @param grupa csv grupy (idGrupy;nrGrupy;nrKursu;limitMiejsc;zajęteMiejsca)
-     * @return grupa nrGrupy kurs nrKursu ( zajęteMiejsca/limitMiejsc), termin: termin, sala: sala
+     * @return grupa nrGrupy kurs nrKursu ( zajęteMiejsca/limitMiejsc), termin:
+     *         termin, sala: sala
      */
 
     public int znajdzIdGrupy(String grupa) {
@@ -176,22 +180,26 @@ public class CSV {
 
     /**
      * Utwrzenie grupy w csv grupy.
+     * 
      * @param idGrupy id tworzonej grupy
      * @param nrGrupy numer tworzonej grupy
      * @param nrKursu numer kursu do którego tworzona jest grupa
-     * @param limit limit miejsc w tworzonej grupie
-     * @return idGrupy;nrGrupy;nrKursu;limitMiejsc;0
+     * @param limit   limit miejsc w tworzonej grupie
+     * @param termin  termin zajęć
+     * @param sala    sala zajęciowa
+     * @return idGrupy;nrGrupy;nrKursu;limitMiejsc;0;termin;sala
      */
-    public String utworzCsvGrupe(int idGrupy, int nrGrupy, String nrKursu, int limit) {
-        return idGrupy + ";" + nrGrupy + ";" + nrKursu + ";" + limit + ";0";
+    public String utworzCsvGrupe(int idGrupy, int nrGrupy, String nrKursu, int limit, String termin, String sala) {
+        return idGrupy + ";" + nrGrupy + ";" + nrKursu + ";" + limit + ";0;" + termin + ";" + sala;
     }
 
     /**
      * Utwrzenie zapisu w csv zapisu.
-     * @param idZapisu idZapisu tworzonego zapisu
+     * 
+     * @param idZapisu       idZapisu tworzonego zapisu
      * @param indeksStudenta indeks studenta, który się zapisuje
-     * @param nrKursu numer kursu na który student się zapisuje
-     * @param nrGrupy numer grupy na którą student się zapisuje
+     * @param nrKursu        numer kursu na który student się zapisuje
+     * @param nrGrupy        numer grupy na którą student się zapisuje
      * @return idZapisu;indeksStudenta;nrKursu;nrGrupy
      */
     public String utworzCsvZapis(int idZapisu, int indeksStudenta, String nrKursu, int nrGrupy) {
@@ -200,8 +208,10 @@ public class CSV {
 
     /**
      * Znalezienie zapisu w csv zapisu.
+     * 
      * @param zapis zapis, którego szukamy
-     * @return zapis nr idZapisu: student indeksStudenta -> nrKursu, nrGrupy lub niepoprawny zapis, jeśli nie znaleziono zapisu
+     * @return zapis nr idZapisu: student indeksStudenta -> nrKursu, nrGrupy lub
+     *         niepoprawny zapis, jeśli nie znaleziono zapisu
      */
     public int znajdzIndeksStudentaZapisu(String zapis) {
         Pattern wzor = Pattern.compile("(?<=;)\\d+(?=;)");

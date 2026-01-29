@@ -16,7 +16,6 @@ public class TestModel {
 
     @BeforeEach
     public void setUp() {
-        // JEŚLI: inicjalizujemy Model, Inwentarz i DAO
         dao = new DAO();
         inwentarz = new Inwentarz(dao);
         model = new Model(inwentarz, dao);
@@ -24,7 +23,6 @@ public class TestModel {
 
     @AfterEach
     public void tearDown() {
-        // WTEDY: sprzątamy
         model = null;
         inwentarz = null;
         dao = null;
@@ -68,8 +66,6 @@ public class TestModel {
         int zajete = Integer.parseInt(danePrzed[4]);
 
         // Symulujemy przepełnienie (błąd danych w bazie?) — ręczna edycja w DAO
-        // Format: id;nrGrupy;nrKursu;limit;zajete;termin;sala
-        // Przypomnijmy DAO: bazaGrup.put(1, "1;1;W1;15;12;Pon_13-15;22");
         // Ustawmy zajęte na 20 (limit 15)
         String zepsutaGrupa = danePrzed[0] + ";" + nrGrupy + ";W1;" + limit + ";" + (limit + 5) + ";" + danePrzed[5]
                 + ";" + danePrzed[6];

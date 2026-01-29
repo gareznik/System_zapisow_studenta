@@ -15,14 +15,12 @@ public class TestInwentarz {
 
     @BeforeEach
     public void setUp() {
-        // JEŚLI: tworzymy nową instancję DAO i Inwentarza przed każdym testem
         dao = new DAO();
         inwentarz = new Inwentarz(dao);
     }
 
     @AfterEach
     public void tearDown() {
-        // WTEDY: czyścimy referencje
         inwentarz = null;
         dao = null;
     }
@@ -79,8 +77,6 @@ public class TestInwentarz {
 
         // WTEDY: nowa grupa powinna istnieć w systemie
         assertNotNull(nowaGrupa, "Nowo utworzona grupa powinna dać się pobrać");
-        // Sprawdzamy limit - w DAO format: id;nrGrupy;nrKursu;limit;zajete;termin;sala
-        // czyli parts[3] to limit
         assertEquals(limit, Integer.parseInt(dao.pobierzDaneGrupy(nrGrupy, nrKursu).split(";")[3]),
                 "Limit w DAO powinien się zgadzać");
     }

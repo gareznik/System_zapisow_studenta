@@ -18,14 +18,11 @@ public class TestStudent {
 
     @BeforeEach
     public void setUp() {
-        // JEŚLI: tworzymy nowego studenta przed każdym testem
         student = new Student(123456, "Jan", "Kowalski");
     }
 
     @AfterEach
     public void tearDown() {
-        // WTEDY: czyścimy referencję po każdym teście (opcjonalne w Javie, ale wymagane
-        // w zadaniu)
         student = null;
     }
 
