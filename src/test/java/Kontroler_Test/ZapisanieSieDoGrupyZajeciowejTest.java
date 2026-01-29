@@ -5,6 +5,8 @@ import Model.IModel;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("kontroler")
@@ -35,11 +37,26 @@ class ZapisanieSieDoGrupyZajeciowejTest {
         public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
 
         @Override
+        public ArrayList<String> pobranieListyZajecIGrup() {
+            return null;
+        }
+
+        @Override
         public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
 
         @Override
         public String[] znalezienieStudenta(int nrIndeksu) {
             return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
         }
 
         @Override
@@ -62,10 +79,25 @@ class ZapisanieSieDoGrupyZajeciowejTest {
         public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
 
         @Override
+        public ArrayList<String> pobranieListyZajecIGrup() {
+            return null;
+        }
+
+        @Override
         public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
 
         @Override
         public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
+
+        @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
+        }
 
         @Override
         public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }

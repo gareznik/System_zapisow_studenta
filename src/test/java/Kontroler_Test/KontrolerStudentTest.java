@@ -1,5 +1,6 @@
-package Kontroler;
+package Kontroler_Test;
 
+import Kontroler.KontrolerStudent;
 import Model.IModel;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -27,6 +28,27 @@ class KontrolerStudentTest {
         }
 
         @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {
+
+        }
+
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
+        }
+
+        @Override
         public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) {
             return new String[]{"W1", "W2"};
         }
@@ -37,6 +59,11 @@ class KontrolerStudentTest {
             lista.add("W1 - grupa 1");
             lista.add("W2 - grupa 2");
             return lista;
+        }
+
+        @Override
+        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
+
         }
     }
 

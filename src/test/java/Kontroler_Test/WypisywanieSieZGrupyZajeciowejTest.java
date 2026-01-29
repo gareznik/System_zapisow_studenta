@@ -49,6 +49,21 @@ class WypisywanieSieZGrupyZajeciowejTest {
         }
 
         @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
+        }
+
+        @Override
         public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) {
             return new String[0];
         }
@@ -95,6 +110,21 @@ class WypisywanieSieZGrupyZajeciowejTest {
             @Override
             public String[] znalezienieStudenta(int nrIndeksu) {
                 return new String[0];
+            }
+
+            @Override
+            public String[] znalezienieKursu(String nrKursu) {
+                return new String[0];
+            }
+
+            @Override
+            public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
+                return new String[0];
+            }
+
+            @Override
+            public void zarejestrowanieZdarzenia(String zdarzenie) {
+
             }
 
             @Override

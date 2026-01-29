@@ -1,4 +1,4 @@
-package Kontroler_Test;
+package KontrolerTestMock;
 
 import Kontroler.*;
 import Model.IModel;

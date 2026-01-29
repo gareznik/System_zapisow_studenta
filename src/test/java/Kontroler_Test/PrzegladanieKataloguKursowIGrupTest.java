@@ -29,10 +29,35 @@ class PrzegladanieKataloguKursowIGrupTest {
             return lista;
         }
 
+        @Override
+        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
+
+        }
+
         // pozostałe metody interfejsu – puste implementacje
         @Override
         public String[] znalezienieStudenta(int nrIndeksu) {
             return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {
+
+        }
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
         }
 
         @Override
@@ -52,8 +77,33 @@ class PrzegladanieKataloguKursowIGrupTest {
         }
 
         @Override
+        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
+
+        }
+
+        @Override
         public String[] znalezienieStudenta(int nrIndeksu) {
             return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieKursu(String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
+            return new String[0];
+        }
+
+        @Override
+        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {
+
+        }
+
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) {
+
         }
 
         @Override
