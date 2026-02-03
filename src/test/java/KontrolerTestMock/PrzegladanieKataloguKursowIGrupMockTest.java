@@ -25,7 +25,7 @@ class PrzegladanieKataloguKursowIGrupMockTest {
 
     @Test
     @Order(1)
-    @DisplayName("Sukces: katalog zawiera kursy → pobranie listy + brak wyjątku")
+    @DisplayName("Sukces: katalog zawiera kursy -> pobranie listy + brak wyjątku")
     void shouldBrowseCatalogWhenDataExists() {
         // given
         ArrayList<String> katalog = new ArrayList<>();
@@ -46,7 +46,7 @@ class PrzegladanieKataloguKursowIGrupMockTest {
 
     @Test
     @Order(2)
-    @DisplayName("Błąd: katalog pusty → pobranie listy, brak dalszych operacji")
+    @DisplayName("Błąd: katalog pusty -> pobranie listy, brak dalszych operacji")
     void shouldHandleEmptyCatalogGracefully() {
         // given
         when(model.pobranieListyZajecIGrup())
@@ -63,7 +63,7 @@ class PrzegladanieKataloguKursowIGrupMockTest {
 
     @Test
     @Order(3)
-    @DisplayName("Konstruktor: model != null → obiekt PU zostaje utworzony")
+    @DisplayName("Konstruktor: model != null -> obiekt PU zostaje utworzony")
     void shouldCreateControllerWithValidModel() {
         // given
         when(model.pobranieListyZajecIGrup())
