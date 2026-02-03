@@ -16,91 +16,59 @@ class ZapisanieSieDoGrupyZajeciowejTest {
 
     private IModel model;
 
-    /**
-     * Atrapa modelu – grupa z wolnymi miejscami, brak kolizji
-     */
     static class ModelStub implements IModel {
-
         boolean zapisZarejestrowany = false;
 
         @Override
         public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
-            // dane grupy: [id, kurs, nazwa, limit, zajete, inne]
             return new String[]{"1", nrKursu, "Grupa 1", "10", "5", "extra"};
         }
 
-        public void zapisStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) {
+        @Override
+        public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) {
             zapisZarejestrowany = true;
+            return true;
         }
 
+        // --- FIX ---
         @Override
-        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
-
-        @Override
-        public ArrayList<String> pobranieListyZajecIGrup() {
-            return null;
+        public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) {
+            return false;
         }
 
-        @Override
-        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
-
-        @Override
-        public String[] znalezienieStudenta(int nrIndeksu) {
-            return new String[0];
-        }
-
-        @Override
-        public String[] znalezienieKursu(String nrKursu) {
-            return new String[0];
-        }
-
-        @Override
-        public void zarejestrowanieZdarzenia(String zdarzenie) {
-
-        }
-
-        @Override
-        public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) {
-            return new String[0];
-        }
+        @Override public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
+        @Override public ArrayList<String> pobranieListyZajecIGrup() { return null; }
+        @Override public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
+        @Override public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
+        @Override public String[] znalezienieKursu(String nrKursu) { return new String[0]; }
+        @Override public void zarejestrowanieZdarzenia(String zdarzenie) { }
+        @Override public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }
     }
 
-    /**
-     * Atrapa modelu – brak wolnych miejsc
-     */
     static class ModelStubFull implements IModel {
-
         @Override
         public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
             return new String[]{"1", nrKursu, "Grupa 1", "10", "10", "extra"};
         }
 
         @Override
-        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
-
-        @Override
-        public ArrayList<String> pobranieListyZajecIGrup() {
-            return null;
+        public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) {
+            return false;
         }
 
+        // --- FIX ---
         @Override
-        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
-
-        @Override
-        public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
-
-        @Override
-        public String[] znalezienieKursu(String nrKursu) {
-            return new String[0];
+        public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) {
+            return false;
         }
 
-        @Override
-        public void zarejestrowanieZdarzenia(String zdarzenie) {
-
-        }
-
-        @Override
-        public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }
+        @Override public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
+        @Override public ArrayList<String> pobranieListyZajecIGrup() { return null; }
+        @Override public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
+        @Override public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
+        @Override public String[] znalezienieKursu(String nrKursu) { return new String[0]; }
+        @Override public void zarejestrowanieZdarzenia(String zdarzenie) { }
+        @Override public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }
     }
 
     @Test
@@ -108,10 +76,7 @@ class ZapisanieSieDoGrupyZajeciowejTest {
     @DisplayName("Konstruktor – zapis do grupy z wolnymi miejscami")
     void shouldRegisterStudentToGroup() {
         ModelStub stub = new ModelStub();
-
-        assertDoesNotThrow(() ->
-                new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1")
-        );
+        assertDoesNotThrow(() -> new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1"));
     }
 
     @Test
@@ -119,10 +84,7 @@ class ZapisanieSieDoGrupyZajeciowejTest {
     @DisplayName("Konstruktor – brak wolnych miejsc w grupie")
     void shouldHandleFullGroupGracefully() {
         ModelStubFull stub = new ModelStubFull();
-
-        assertDoesNotThrow(() ->
-                new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1")
-        );
+        assertDoesNotThrow(() -> new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1"));
     }
 
     @Test
@@ -130,10 +92,7 @@ class ZapisanieSieDoGrupyZajeciowejTest {
     @DisplayName("Konstruktor – obiekt PU został utworzony")
     void shouldCreatePUObject() {
         ModelStub stub = new ModelStub();
-
-        ZapisanieSieDoGrupyZajeciowej pu =
-                new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1");
-
+        ZapisanieSieDoGrupyZajeciowej pu = new ZapisanieSieDoGrupyZajeciowej(stub, 12345, "W1");
         assertNotNull(pu);
     }
 }

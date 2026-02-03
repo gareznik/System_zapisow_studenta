@@ -69,4 +69,8 @@ public interface IModel {
 	 * @return true jeśli zapis się powiódł, false w przeciwnym razie
 	 */
 	boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu);
+
+
+	// --- PU03 (NOWA METODA - WYPISANIE) ---
+	boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu);
 }

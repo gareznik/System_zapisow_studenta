@@ -134,7 +134,7 @@ public class Model implements IModel {
 				"Grupa usunięta");
 	}
 
-	// --- NOWA METODA (DLA TESTÓW AKCEPTACYJNYCH) ---
+	// --- NOWA METODA PU2(DLA TESTÓW AKCEPTACYJNYCH) ---
 
 	/**
 	 * Implementacja zapisu studenta do grupy (PU02).
@@ -173,5 +173,26 @@ public class Model implements IModel {
 		Widok.pokaż(this.getClass().getCanonicalName(), "zapiszStudentaDoGrupy", true,
 				"Sukces: Zaktualizowano powiązania w modelu.");
 		return true;
+	}
+
+	// --- PU03: WYPISANIE (NOWA METODA) ---
+	@Override
+	public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) {
+		Widok.pokaż(this.getClass().getCanonicalName(), "wypiszStudentaZGrupy", true,
+				"Logika: Wypisywanie studenta " + indeks + " z grupy " + nrGrupy);
+
+		IStudent s = inwentarz.pobierzStudenta(indeks);
+		GrupaZajeciowa g = inwentarz.pobierzGrupe(nrGrupy, nrKursu);
+
+		if (s != null && g != null) {
+			// Usuwamy studenta z grupy
+			g.usunStudenta(s);
+			// Usuwamy grupę ze studenta
+			if (s instanceof Student) {
+				((Student) s).usunZGrupy(g);
+			}
+			return true;
+		}
+		return false;
 	}
 }

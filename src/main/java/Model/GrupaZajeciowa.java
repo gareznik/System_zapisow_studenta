@@ -63,6 +63,13 @@ public class GrupaZajeciowa {
 		zapisaniStudenci.add(student);
 	}
 
+
+	// --- NOWA METODA (DODAJ TO) ---
+	public void usunStudenta(IStudent student) {
+		zapisaniStudenci.remove(student);
+	}
+	// ----------
+
 	/**
 	 * Sprawdzenie kolizji terminów.
 	 *

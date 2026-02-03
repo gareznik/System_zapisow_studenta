@@ -65,6 +65,17 @@ class KontrolerStudentTest {
         public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
 
         }
+
+        @Override
+        public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) {
+            return false;
+        }
+
+        // --- NOWA METODA (Fix błędu kompilacji) ---
+        @Override
+        public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) {
+            return true;
+        }
     }
 
     @BeforeEach

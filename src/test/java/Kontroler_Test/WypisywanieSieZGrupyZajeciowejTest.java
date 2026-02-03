@@ -21,8 +21,7 @@ class WypisywanieSieZGrupyZajeciowejTest {
      */
     static class ModelStub implements IModel {
 
-        boolean limitZaktualizowany = false;
-        boolean grupaUsunieta = false;
+        boolean wypisanoStudenta = false;
 
         @Override
         public ArrayList<String> pobranieListyZajecIGrup() {
@@ -32,41 +31,31 @@ class WypisywanieSieZGrupyZajeciowejTest {
             return lista;
         }
 
+        // --- Nowa metoda testowa ---
         @Override
-        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {
-            limitZaktualizowany = true;
+        public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) {
+            wypisanoStudenta = true;
+            return true;
         }
 
         @Override
-        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
-            grupaUsunieta = true;
-        }
-
-        // nieużywane w tym PU
-        @Override
-        public String[] znalezienieStudenta(int nrIndeksu) {
-            return new String[0];
-        }
+        public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) { }
 
         @Override
-        public String[] znalezienieKursu(String nrKursu) {
-            return new String[0];
-        }
+        public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) { }
 
         @Override
-        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
-            return new String[0];
-        }
-
+        public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
         @Override
-        public void zarejestrowanieZdarzenia(String zdarzenie) {
-
-        }
-
+        public String[] znalezienieKursu(String nrKursu) { return new String[0]; }
         @Override
-        public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) {
-            return new String[0];
-        }
+        public String[] znalezienieGrupy(int nrGrupy, String nrKursu) { return new String[0]; }
+        @Override
+        public void zarejestrowanieZdarzenia(String zdarzenie) { }
+        @Override
+        public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }
+        @Override
+        public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) { return false; }
     }
 
     @Test
@@ -84,8 +73,8 @@ class WypisywanieSieZGrupyZajeciowejTest {
                 )
         );
 
-        assertTrue(stub.limitZaktualizowany);
-        assertTrue(stub.grupaUsunieta);
+        // Sprawdzamy, czy wywołano nową metodę modelu
+        assertTrue(stub.wypisanoStudenta, "Powinna zostać wywołana metoda wypiszStudentaZGrupy");
     }
 
     @Test
@@ -93,44 +82,16 @@ class WypisywanieSieZGrupyZajeciowejTest {
     @DisplayName("Konstruktor – model zwraca pustą listę grup")
     void shouldHandleEmptyGroupList() {
         IModel emptyModel = new IModel() {
-
-            @Override
-            public ArrayList<String> pobranieListyZajecIGrup() {
-                return new ArrayList<>();
-            }
-
-            @Override
-            public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {
-            }
-
-            @Override
-            public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {
-            }
-
-            @Override
-            public String[] znalezienieStudenta(int nrIndeksu) {
-                return new String[0];
-            }
-
-            @Override
-            public String[] znalezienieKursu(String nrKursu) {
-                return new String[0];
-            }
-
-            @Override
-            public String[] znalezienieGrupy(int nrGrupy, String nrKursu) {
-                return new String[0];
-            }
-
-            @Override
-            public void zarejestrowanieZdarzenia(String zdarzenie) {
-
-            }
-
-            @Override
-            public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) {
-                return new String[0];
-            }
+            @Override public ArrayList<String> pobranieListyZajecIGrup() { return new ArrayList<>(); }
+            @Override public void aktualizacjaLimituMiejsc(int nrGrupy, String nrKursu) {}
+            @Override public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu) {}
+            @Override public String[] znalezienieStudenta(int nrIndeksu) { return new String[0]; }
+            @Override public String[] znalezienieKursu(String nrKursu) { return new String[0]; }
+            @Override public String[] znalezienieGrupy(int nrGrupy, String nrKursu) { return new String[0]; }
+            @Override public void zarejestrowanieZdarzenia(String zdarzenie) {}
+            @Override public String[] znalezienieUprawnienUzytkownika(int nrIndeksu) { return new String[0]; }
+            @Override public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) { return false; }
+            @Override public boolean wypiszStudentaZGrupy(int indeks, int nrGrupy, String nrKursu) { return false; }
         };
 
         assertDoesNotThrow(() ->
@@ -148,15 +109,7 @@ class WypisywanieSieZGrupyZajeciowejTest {
     @DisplayName("Konstruktor – obiekt PU został utworzony")
     void shouldCreatePUObject() {
         ModelStub stub = new ModelStub();
-
-        WypisywanieSieZGrupyZajeciowej pu =
-                new WypisywanieSieZGrupyZajeciowej(
-                        stub,
-                        12345,
-                        1,
-                        "W1"
-                );
-
+        WypisywanieSieZGrupyZajeciowej pu = new WypisywanieSieZGrupyZajeciowej(stub, 12345, 1, "W1");
         assertNotNull(pu);
     }
 }
