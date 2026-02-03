@@ -20,9 +20,21 @@ public class Inwentarz {
 	 */
 	public Inwentarz(IDAO dao) {
 		this.dao = dao;
-		this.studenci = new ArrayList<IStudent>();
-		this.grupy = new ArrayList<GrupaZajeciowa>();
+		this.studenci = new ArrayList<>();
+		this.grupy = new ArrayList<>();
 	}
+
+
+	//zmiany dla fitnesse
+	public void dodajStudenta(IStudent student) {
+		studenci.add(student);
+	}
+
+	public void dodajGrupe(GrupaZajeciowa grupa) {
+		grupy.add(grupa);
+	}
+	//
+
 
 	/**
 	 * Pobranie studenta po jego indeksie.
@@ -59,7 +71,7 @@ public class Inwentarz {
 	public GrupaZajeciowa dajGrupe(int nrGrupy, String nrKursu) {
 		GrupaZajeciowa grupa = null;
 		// usunięcie grupy z lokalnej listy
-		grupy.removeIf(g -> g.getNrGrupy() == nrGrupy && g.getNrKuru().equals(nrKursu));
+		grupy.removeIf(g -> g.getNrGrupy() == nrGrupy && g.getNrKursu().equals(nrKursu));
 		// pobranie grupy z bazy
 		String daneGrupy = dao.pobierzDaneGrupy(nrGrupy, nrKursu);
 		String[] parts = daneGrupy.split(";");
@@ -118,5 +130,36 @@ public class Inwentarz {
 			Widok.pokaż(this.getClass().getCanonicalName(), "usunGrupe", false,
 					"Nie znaleziono grupy o numerze: " + nrGrupy + " należącej do kursu o numerze: " + nrKursu + ".");
 		}
+	}
+
+	// --- NOWE METODY (DLA TESTÓW AKCEPTACYJNYCH) ---
+
+	/**
+	 * Wyszukuje studenta po numerze indeksu.
+	 * @param indeks numer indeksu
+	 * @return obiekt studenta lub null, jeśli nie znaleziono
+	 */
+	public IStudent pobierzStudenta(int indeks) {
+		for (IStudent s : studenci) {
+			if (s.dajNrIndeksu() == indeks) {
+				return s;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Wyszukuje grupę zajęciową po numerze grupy i kursu.
+	 * @param nrGrupy numer grupy
+	 * @param nrKursu numer kursu
+	 * @return obiekt grupy lub null, jeśli nie znaleziono
+	 */
+	public GrupaZajeciowa pobierzGrupe(int nrGrupy, String nrKursu) {
+		for (GrupaZajeciowa g : grupy) {
+			if (g.getNrGrupy() == nrGrupy && g.getNrKursu().equals(nrKursu)) {
+				return g;
+			}
+		}
+		return null;
 	}
 }

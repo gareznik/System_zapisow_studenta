@@ -57,4 +57,16 @@ public interface IModel {
 	 * @param nrKursu numer kursu
 	 */
 	public void usuniecieGrupyZPlanu(int nrGrupy, String nrKursu);
+
+
+
+	// --- NOWA METODA (DLA TESTÓW AKCEPTACYJNYCH) ---
+	/**
+	 * Zapisuje studenta do wybranej grupy zajęciowej (zmiana stanu systemu).
+	 * @param indeks numer indeksu studenta
+	 * @param nrGrupy numer grupy
+	 * @param nrKursu numer kursu
+	 * @return true jeśli zapis się powiódł, false w przeciwnym razie
+	 */
+	boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu);
 }

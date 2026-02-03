@@ -58,7 +58,7 @@ public class TestInwentarz {
         // WTEDY: grupa powinna zostać znaleziona
         assertNotNull(grupa, "Grupa 1/W1 powinna istnieć");
         assertEquals(1, grupa.getNrGrupy());
-        assertEquals("W1", grupa.getNrKuru());
+        assertEquals("W1", grupa.getNrKursu());
     }
 
     @ParameterizedTest

@@ -18,7 +18,7 @@ public class GrupaZajeciowa {
 		return termin;
 	}
 
-	public String getNrKuru() {
+	public String getNrKursu() {
 		return nrKuru;
 	}
 

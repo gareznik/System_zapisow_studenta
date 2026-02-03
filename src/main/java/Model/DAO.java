@@ -25,8 +25,10 @@ public class DAO implements IDAO {
     private Map<Integer, String> bazaGrup = new HashMap<Integer, String>();
     // inkrementowane indeksy grup (niegdy nie zerowane)
     private int ostatniIdGrupy;
+    private Inwentarz inwentarz;
 
     public DAO() {
+        this.inwentarz = inwentarz;
         // załadowanie bazy studentów przykładowymi danymi
         bazaStudentow.put(1, "1;Julia;Browarczyk;0");
         bazaStudentow.put(2, "2;Karolina;Marcisz;5");

@@ -133,4 +133,45 @@ public class Model implements IModel {
 		Widok.pokaż(this.getClass().getCanonicalName(), "usuniecieGrupyZPlanu", true,
 				"Grupa usunięta");
 	}
+
+	// --- NOWA METODA (DLA TESTÓW AKCEPTACYJNYCH) ---
+
+	/**
+	 * Implementacja zapisu studenta do grupy (PU02).
+	 * Modyfikuje stan obiektów w pamięci (Inwentarz).
+	 */
+	@Override
+	public boolean zapiszStudentaDoGrupy(int indeks, int nrGrupy, String nrKursu) {
+		Widok.pokaż(this.getClass().getCanonicalName(), "zapiszStudentaDoGrupy", true,
+				"Logika biznesowa: Próba zapisu studenta " + indeks + " do grupy " + nrGrupy);
+
+		// 1. Pobranie obiektów z inwentarza
+		IStudent studentInterface = inwentarz.pobierzStudenta(indeks);
+		GrupaZajeciowa grupa = inwentarz.pobierzGrupe(nrGrupy, nrKursu);
+
+		// 2. Weryfikacja istnienia obiektów
+		if (studentInterface == null) {
+			Widok.pokaż(this.getClass().getCanonicalName(), "zapiszStudentaDoGrupy", false,
+					"Błąd: Nie znaleziono studenta o indeksie " + indeks);
+			return false;
+		}
+		if (grupa == null) {
+			Widok.pokaż(this.getClass().getCanonicalName(), "zapiszStudentaDoGrupy", false,
+					"Błąd: Nie znaleziono grupy " + nrGrupy + " dla kursu " + nrKursu);
+			return false;
+		}
+
+		// 3. Właściwy zapis (aktualizacja obu stron relacji)
+		// Dodanie studenta do listy w grupie
+		grupa.dodajStudenta(studentInterface);
+
+		// Dodanie grupy do listy u studenta (wymagane rzutowanie na klasę Student, jeśli interfejs tego nie ma)
+		if (studentInterface instanceof Student) {
+			((Student) studentInterface).zapiszDoGrupy(grupa);
+		}
+
+		Widok.pokaż(this.getClass().getCanonicalName(), "zapiszStudentaDoGrupy", true,
+				"Sukces: Zaktualizowano powiązania w modelu.");
+		return true;
+	}
 }

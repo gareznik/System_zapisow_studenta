@@ -155,7 +155,12 @@ public class ZapisanieSieDoGrupyZajeciowej {
         Widok.pokaż(this.getClass().getCanonicalName(), "rejestrowanieZapisuWBazieDanych", true,
                 "Rejestrowanie zapisu studenta " + indeks + " do grupy " + nrGrupy + " kursu " + nrKursu);
 
-        // W rzeczywistości:
-        // model.zapiszStudentaDoGrupy(indeks, nrGrupy, nrKursu);
+        // Wywołanie logiki biznesowej w modelu
+        boolean sukces = model.zapiszStudentaDoGrupy(indeks, nrGrupy, nrKursu);
+
+        if (!sukces) {
+            Widok.pokaż(this.getClass().getCanonicalName(), "rejestrowanieZapisuWBazieDanych", false,
+                    "Wystąpił błąd podczas zapisu w modelu.");
+        }
     }
 }
